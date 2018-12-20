@@ -1,0 +1,14 @@
+<h2 mat-dialog-title style="display:inline-block">{{formCommand | titlecase}}</h2>
+<button mat-mini-fab color="warn" class="flat" style="display:inline-block; float:right;" (click)="close()">
+  <mat-icon aria-label="Close">close</mat-icon>
+</button>
+<mat-dialog-content></mat-dialog-content>
+
+  <app-new-patient-form #form *ngIf="formCommand=='new patient'"     [formModel]="formModel" (onEventUpdate)="onEventUpdate($event)"></app-new-patient-form>
+  <app-new-payment-form #form *ngIf="formCommand=='new payment'"     [formModel]="formModel" (onEventUpdate)="onEventUpdate($event)"></app-new-payment-form>
+  <app-new-invoice-form #form *ngIf="formCommand=='new invoice'"     [formModel]="formModel" (onEventUpdate)="onEventUpdate($event)"></app-new-invoice-form>
+  <app-new-appt-form    #form *ngIf="formCommand=='new appointment'" [formModel]="formModel" (onEventUpdate)="onEventUpdate($event)"></app-new-appt-form>
+
+<mat-dialog-actions>
+
+</mat-dialog-actions>

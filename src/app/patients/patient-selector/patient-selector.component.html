@@ -1,0 +1,12 @@
+<div>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Select Patient" focused="selectFocused" [(value)]="selectedPatient" (selectionChange)="onPatientSelect($event.value)">
+      <mat-option>Select Patient</mat-option>
+      <mat-option *ngFor="let pat of patients" [(value)]="pat">
+        {{pat['first_name'] + ' ' + pat['last_name']}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+

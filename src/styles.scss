@@ -1,3 +1,23 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~fullcalendar/dist/fullcalendar.css";
+
+.mat-dialog-container {
+  will-change: transform, opacity;
+}
+
+.mffsidespace {
+  padding-left:10px;
+  padding-right:10px;
+}
+.mffsidespaceblock {
+  padding-left:10px;
+  padding-right:10px;
+  display:inline-block;
+}
+.fmffsidespaceblock {
+  padding-right:10px;
+  display:inline-block;
+}
 .padding {
   padding: 2em;
 }
@@ -69,3 +89,6 @@ app-todo {
 .sb {
   justify-content: space-between;
 }
+
+
+

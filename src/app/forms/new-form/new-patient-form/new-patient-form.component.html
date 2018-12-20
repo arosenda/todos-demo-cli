@@ -1,0 +1,168 @@
+
+<form [formGroup]="form" novalidate (ngSubmit)="saveForm(form.value)">
+  <mat-tab-group [color]="accent">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">edit</mat-icon>
+        Patient Demographics
+      </ng-template>
+      <table class="example-full-width" cellspacing="10">
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>First Name</mat-label>
+            <input #firstname matInput placeholder="First name" formControlName="first_name">
+            <mat-error *ngIf="form.controls.first_name.hasError('minLength') && !form.controls.first_name.hasError('required')">
+              Length >= 2 characters
+            </mat-error>
+            <mat-error *ngIf="form.controls.first_name.hasError('required')">
+              First name is required
+            </mat-error>
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <input #lastname matInput placeholder="Last Name" formControlName="last_name" style="color:black">
+            <mat-error *ngIf="form.controls.last_name.hasError('minLength') && !form.controls.last_name.hasError('required')">
+              Length >= 2 characters
+            </mat-error>
+            <mat-error *ngIf="form.controls.last_name.hasError('required')">
+              Last name is required
+            </mat-error>
+          </mat-form-field></td>
+          <td>
+            <mat-form-field>
+              <input #dob matInput [matDatepicker]="picker" placeholder="Data of Birth" formControlName="date_of_birth">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.controls.first_name.hasError('minLength') && !emailFormControl.hasError('required')">
+                Incorrect format
+              </mat-error>
+              <mat-error *ngIf="form.controls.first_name.hasError('required')">
+                DOB is required
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Telephone" formControlName="primary_telephone_number">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Email Address" formControlName="primary_email">
+            <mat-error *ngIf="form.controls.primary_email.hasError('email') && !form.controls.primary_email.hasError('required')">
+              Enter a valid email
+            </mat-error>
+            <mat-error *ngIf="form.controls.primary_email.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field></td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Address Line One" formControlName="address_line_one">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Address Line Two" formControlName="address_line_two">
+          </mat-form-field></td>
+        </tr>
+        <td><mat-form-field class="example-full-width">
+          <input matInput placeholder="City" formControlName="city">
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <input matInput placeholder="State" formControlName="state">
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <input #postalCode matInput maxlength="5" placeholder="Zip Code" formControlName="zipcode">
+        </mat-form-field></td>
+      </table>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">edit</mat-icon>
+        Patient Notes
+      </ng-template>
+      <table class="example-full-width" cellspacing="10">
+        <tr><td>
+          <mat-form-field class="example-full-width" style="width: 565px;">
+            <mat-label>Chief Complaint</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="notes_cc"></textarea>
+          </mat-form-field>
+        </td></tr>
+        <tr><td>
+          <mat-form-field class="example-full-width" style="width: 565px;">
+            <mat-label>History of Present Illness</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="notes_history"></textarea>
+          </mat-form-field>
+        </td></tr>
+        <tr><td>
+          <mat-form-field class="example-full-width" style="width: 565px;">
+            <mat-label>Other Notes</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="notes_other"></textarea>
+          </mat-form-field>
+        </td></tr>
+      </table>
+
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">edit</mat-icon>
+        Referral Data
+      </ng-template>
+      <table class="example-full-width" cellspacing="10">
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input  matInput placeholder="Referral name" formControlName="referral_name">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Referral Telephone" formControlName="referral_number">
+          </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <input matInput placeholder="Referral Email" formControlName="referral_email">
+          </mat-form-field></td>
+        </tr>
+      </table>
+      <table class="example-full-width" cellspacing="10">
+        <tr><td>
+          <mat-form-field class="example-full-width" style="width: 565px;">
+            <mat-label>Referral Notes</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="5"
+                      formControlName="referral_note"></textarea>
+          </mat-form-field>
+        </td></tr></table>
+    </mat-tab>
+
+  </mat-tab-group>
+
+  <p-messages [value]=checkform()></p-messages>
+
+  <h2 style="display: inline-block;padding-left:10px;padding-right:15px;">{{
+    firstname?.value + ' ' + lastname?.value + ' ' + dob?.value}}</h2>
+
+  <div style="display: inline-block;">
+    <button mat-flat-button color="primary" type="submit" label="Save" style="margin-bottom:10px;width:auto" class="blue-btn flat">Save</button>
+  </div>
+
+</form>
+
+
+
+

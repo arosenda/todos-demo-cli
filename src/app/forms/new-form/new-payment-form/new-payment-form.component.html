@@ -1,0 +1,51 @@
+<form [formGroup]="form" novalidate (ngSubmit)="saveForm(form.value)" style="float:left">
+  <app-patient-selector class="mffsidespace" (onPatientSelected)="patientSelected($event)"></app-patient-selector>
+  <mat-form-field class="mffsidespace">
+    <mat-label>Amount($)</mat-label>
+    <input #amount matInput placeholder="Amount($)" formControlName="amount">
+    <mat-error *ngIf="form.controls.amount.hasError('minLength') && !form.controls.amount.hasError('required')">
+      Length >= 2 characters
+    </mat-error>
+    <mat-error *ngIf="form.controls.amount.hasError('required')">
+      Amount name is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mffsidespace">
+    <input #dopay matInput [matDatepicker]="picker1" placeholder="Payment Date" formControlName="payment_date">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+    <mat-error *ngIf="form.controls.payment_date.hasError('minLength') && !form.controls.payment_date.hasError('required')">
+      Incorrect format
+    </mat-error>
+    <mat-error *ngIf="form.controls.payment_date.hasError('required')">
+      DOB is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mffsidespace">
+    <input #dodepo matInput [matDatepicker]="picker2" placeholder="Deposit Date" formControlName="deposit_date">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+    <mat-error *ngIf="form.controls.deposit_date.hasError('minLength') && !form.controls.deposit_date.hasError('required')">
+      Incorrect format
+    </mat-error>
+    <mat-error *ngIf="form.controls.deposit_date.hasError('required')">
+      DOB is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mffsidespace" style="width: 565px;">
+    <mat-label>Payment Note</mat-label>
+    <textarea matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              formControlName="note"></textarea>
+  </mat-form-field>
+
+  <p-messages [value]=checkform()></p-messages>
+
+  <div style="display: inline-block;">
+    <button mat-flat-button color="primary" type="submit" label="Save" style="margin-bottom:10px;width:auto" class="blue-btn flat">Save</button>
+  </div>
+
+</form>
