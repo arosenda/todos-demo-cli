@@ -1,12 +1,13 @@
 
 <form [formGroup]="form" novalidate (ngSubmit)="saveForm(form.value)">
-  <mat-tab-group [color]="accent">
+  <mat-divider></mat-divider>
+  <mat-tab-group [color]="accent" style="padding-top:15px;padding-bottom:15px;">
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon class="example-tab-icon">edit</mat-icon>
         Patient Demographics
       </ng-template>
-      <table class="example-full-width" cellspacing="10">
+      <table class="example-full-width" cellspacing="10" style="padding-top:6px;">
         <tr>
           <td><mat-form-field class="example-full-width">
             <mat-label>First Name</mat-label>
@@ -28,7 +29,7 @@
             </mat-error>
           </mat-form-field></td>
           <td>
-            <mat-form-field>
+            <mat-form-field class="spemr-form-dob">
               <input #dob matInput [matDatepicker]="picker" placeholder="Data of Birth" formControlName="date_of_birth">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
@@ -69,7 +70,7 @@
         <td><mat-form-field class="example-full-width">
           <input matInput placeholder="State" formControlName="state">
         </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
+        <td><mat-form-field class="spemr-form-dob">
           <input #postalCode matInput maxlength="5" placeholder="Zip Code" formControlName="zipcode">
         </mat-form-field></td>
       </table>
@@ -152,15 +153,25 @@
 
   </mat-tab-group>
 
-  <p-messages [value]=checkform()></p-messages>
+  <mat-divider></mat-divider>
 
-  <h2 style="display: inline-block;padding-left:10px;padding-right:15px;">{{
-    firstname?.value + ' ' + lastname?.value + ' ' + dob?.value}}</h2>
-
-  <div style="display: inline-block;">
-    <button mat-flat-button color="primary" type="submit" label="Save" style="margin-bottom:10px;width:auto" class="blue-btn flat">Save</button>
+  <div *ngIf="true" class="topSummary" style="margin-top:0px; padding-top:10px; padding-bottom: 5px;">
+    <div class="top-summary-title">Creating Patient: </div>
+    <div>{{ firstname?.value + ' ' + lastname?.value  }} {{ ' ' + dob?.value}}</div>
+    <div class="top-summary-code">
+      <mat-error
+        *ngIf="false">
+        Invalid Date!
+      </mat-error>
+    </div>
   </div>
 
+  <div style="padding-top:10px;">
+    <button mat-flat-button color="blue" [disabled]="!canSaveForm() "  type="submit" label="Save"
+            style="margin-bottom:10px;width:auto"
+            class="spemr-blue-bkg flat">Save
+    </button>
+  </div>
 </form>
 
 

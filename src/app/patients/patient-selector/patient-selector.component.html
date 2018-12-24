@@ -1,9 +1,9 @@
 <div>
-  <mat-form-field class="full-width">
+  <mat-form-field class="full-width" style="width:180px; ">
     <mat-select placeholder="Select Patient" focused="selectFocused" [(value)]="selectedPatient" (selectionChange)="onPatientSelect($event.value)">
-      <mat-option>Select Patient</mat-option>
-      <mat-option *ngFor="let pat of patients" [(value)]="pat">
-        {{pat['first_name'] + ' ' + pat['last_name']}}
+      <mat-option (onSelectionChange)="onNewPatient($event)">New Patient</mat-option>
+      <mat-option *ngFor="let pat of patients | orderBy: order : false : true" [(value)]="pat">
+        {{pat['first_name'] + ' ' + pat['last_name'] | titlecase}}
       </mat-option>
     </mat-select>
   </mat-form-field>

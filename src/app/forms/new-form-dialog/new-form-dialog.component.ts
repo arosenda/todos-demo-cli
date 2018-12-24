@@ -1,5 +1,6 @@
 import {Component, ElementRef, Inject, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {KeyFilterModule} from 'primeng/keyfilter';
 // import {EmrFormDialogData} from '../../domain/emrFormDialogData';
 
 export interface FormDialogData {
@@ -27,20 +28,28 @@ export class NewFormDialogComponent implements OnInit {
   ngOnInit() {
   }
   save() {
-    console.log('saving form...');
+    debug('saving form...');
     if (this.isFormValid) {
-      console.log('form invalid');
+      debug('form invalid');
     }
-    else {console.log('form is valid');}
+    else {debug('form is valid');}
     // this.dialogRef.close(this.formValues); // this.form.value);
   }
-  onEventUpdate(event) {
-    this.close();
+  onUpdate(result) {
+    debug('form dialog update: ', result);
+    if (['save', 'delete'].includes(result.event)) {
+      this.close(result);
+    }
   }
-  close() {
-    if (this.formCommand === 'new appointment') {this.dialogRef.close(); return }
+  close(result) {
+    debug('closing here ...', this.formCommand);
+    if (this.formCommand === 'new appointment') {this.dialogRef.close(result); return; }
+    if (this.formCommand === 'new patient') {this.dialogRef.close(result); return; }
     if(confirm('Are you sure to you want to close this form? ... this cannot be retrieved until saved!')) {
-      this.dialogRef.close();
+      this.dialogRef.close(result); return;
     }
   }
 }
+
+const DEBUG = true;
+function debug(...stuff) {if (DEBUG) {console.log(stuff);}}

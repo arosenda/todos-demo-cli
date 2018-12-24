@@ -27,7 +27,7 @@ export class AppointmentsService {
   }
 
   add(data) {
-    debug(this.api_path + ' add data:', data);
+    debug(this.api_path + ' preparing to add:', data);
     this.http.post(`${environment.API_HTTP_URL}` + this.api_json_path, data, this.httpOptions).subscribe((entity) => {
       debug('appointments add enttity: ', entity);
       this.appointmentsStore.add(<Appointment | Appointment[]>entity);
@@ -42,9 +42,10 @@ export class AppointmentsService {
   }
 
   update(id: ID, data) {
+    debug(this.api_path + ' preparing to update: ', id, data);
     this.http.put(`${environment.API_HTTP_URL}` +  this.api_path + '/' + `${id}` + '.json', data, this.httpOptions).subscribe((entity) => {
       debug(this.api_path + ' update enttity: ', entity, data);
-      this.appointmentsStore.update(id, data);
+      this.appointmentsStore.update(id, entity);
     });
   }
 

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PatientService} from '../../../services/patientService';
+import {PatientsService} from '../../../patients/state';
 import {MessageService} from 'primeng/api';
 
 @Component({
@@ -11,11 +11,13 @@ import {MessageService} from 'primeng/api';
 export class NewPatientFormComponent implements OnInit {
   @Input() formModel: any = null;
   @Input() isEmbedded: true;
-  patient: {'id': null};
-  patientSummary: any;
+
   @Output() form: FormGroup;
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
 
   title = 'New Patient';
+  patient: {'id': null};
+  patientSummary: any;
 
   msgs = [];
 
@@ -23,7 +25,7 @@ export class NewPatientFormComponent implements OnInit {
 
   }
   constructor(
-    private patientService: PatientService,
+    private patientService: PatientsService,
     private messageService: MessageService,
     private formBuilder: FormBuilder,
   ) {
@@ -61,25 +63,25 @@ export class NewPatientFormComponent implements OnInit {
     if (!newPatient) { return false; }
     this.patientSummary = JSON.stringify(newPatient, this.replacer);
     if (this.patient) {
-      const result = this.patientService.update(newPatient.id, this.patientSummary).subscribe(result=> {
-        this.patient = result;
-        // this.onPatientUpdate.emit(patient);
-        // console.log('update result' + result);
-        // console.log('update json' + JSON.stringify(result));
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary: 'Success', detail: 'Saved Patient'});
-      });
+      const result = this.patientService.update(newPatient.id, this.patientSummary);
     } else {
       // this.messageService.showSuccess('Success', 'Your appointment was created.');
-      const result = this.patientService.add(newPatient).subscribe(result=> {
-        this.patient = result;
-        // this.onPatientUpdate.emit(patient);
-        console.log('add result' + result);
-        console.log('add json' + JSON.stringify(result));
-        this.msgs = [];
-        this.msgs.push({severity:'info', summary: 'Success', detail: 'Saved Patient'});
-      });
-   }
+      const result = this.patientService.add(newPatient);
+    }
+    this.onUpdate.emit({event: 'save', entity: newPatient});
+  }
+
+  canSaveForm() { return (this.form.valid); }
+
+  deletePatient() {
+    const patient = this.form.value;
+    debug('attempting to delete patient...', patient);
+    if (confirm('Are you sure to you want to delete this patient? ... this cannot be undone!')) {
+      if (patient.id) {
+        this.patientService.delete(patient.id);
+        this.onUpdate.emit({event: 'delete'});
+      }
+    }
   }
 
   checkform(): any {
@@ -134,6 +136,8 @@ export class NewPatientFormComponent implements OnInit {
   }
   */
 
-
 }
+
+const DEBUG = true;
+function debug(...stuff) {if (DEBUG) {console.log(stuff); }}
 

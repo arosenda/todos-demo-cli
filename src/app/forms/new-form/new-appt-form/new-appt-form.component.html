@@ -1,34 +1,44 @@
-<form [formGroup]="form" novalidate (ngSubmit)="onSubmit()" style="padding-bottom:30px;">
-  <app-patient-selector style="width:140px;" class="mffsidespacblock" [patient_id]="formModel?.id" (onPatientSelected)="patientSelected($event)"></app-patient-selector>
-
-  <div class="fmffsidespaceblock">
-    <label style="font-size:12px; display: block; color:gray">Start</label>
-    <p-calendar size="5" showTime="true" hourFormat="12"
-                [timeOnly]="false" placeholder="Time" formControlName="start"></p-calendar>
-  </div>
-  <div class="mffsidespaceblock">
-    <label style="font-size:12px; display: block; color:gray">Duration (mins)</label>
-    <p-spinner size="5" step="5" formControlName="duration" placeholder="Duration" (onChange)="durationChanged($event)" formControlName="duration"></p-spinner>
-  </div>
-
-
-  <table>
+<form [formGroup]="form" novalidate style="">
+  <mat-divider></mat-divider>
+  <table style="padding-top:10px;">
+    <tr>
+      <td>
+        <div style="display:inline-block">
+          <div class="fmffsidespaceblock">
+            <app-patient-selector style="width:180px;" class="mffsidespacblock" [patientId]="formModel?.patient_id"
+                                  (onPatientSelected)="patientSelected($event)"></app-patient-selector>
+          </div>
+        </div>
+      </td>
+      <td style="padding-bottom: 20px;">
+        <div class="mffsidespaceblock">
+          <label style="font-size:14px; display: block; color:gray">Starts At</label>
+          <input class="spemr-form-input-long" formControlName="start" [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+          <owl-date-time #dtPicker2></owl-date-time>
+        </div>
+      </td>
+      <td style="padding-bottom: 20px;">
+        <div class="mffsidespaceblock" style="">
+          <label style="font-size:14px; display: block; color:gray">Duration</label>
+          <input class="spemr-form-input-short" type="text" mask="0000"  formControlName="duration" placeholder="(minutes)" (onChange)="durationChanged($event)">
+        </div>
+      </td>
+    </tr>
     <tr>
       <td class="appttogglecell">
         <mat-slide-toggle
           formControlName="do_code"
           class="appttogglespacer"
           [color]=""
-          [checked]="true"
-          [disabled]="false">
+          [checked]="true">
           w/Coding
         </mat-slide-toggle>
       </td>
       <td class="appttogglecell">
-        <div *ngIf="form.controls.do_code.value">
+        <div *ngIf="form.controls.do_code.value" style="padding-left: 12px;">
           <mat-form-field style="width: 120px;">
             <mat-select placeholder="Primary CPT" name="Primary Code" formControlName="primary_code">
-              <mat-option *ngFor="let option of primaryCodeOptions" [(value)]="option.value">
+              <mat-option *ngFor="let option of primaryCodeOptions" [(value)]="option.label">
                 {{option.label}}
               </mat-option>
             </mat-select>
@@ -36,10 +46,10 @@
         </div>
       </td>
       <td class="appttogglecell">
-        <div *ngIf="form.controls.do_code.value">
+        <div *ngIf="form.controls.do_code.value" style="padding-left: 12px;">
           <mat-form-field style="width: 120px;">
-            <mat-select placeholder="2ndary CPT" name="2ndary Code" formControlName="secondary_code">
-              <mat-option *ngFor="let option of secondaryCodeOptions" [(value)]="option.value">
+            <mat-select placeholder="2ndary CPT" name="Secondary Code" formControlName="secondary_code">
+              <mat-option *ngFor="let option of secondaryCodeOptions" [(value)]="option.label">
                 {{option.label}}
               </mat-option>
             </mat-select>
@@ -56,21 +66,20 @@
           formControlName="do_fee"
           class="appttogglespacer"
           [color]=""
-          [checked]="true"
-          [disabled]="false">
+          [checked]="true">
           w/Billing
         </mat-slide-toggle>
       </td>
       <td class="appttogglecell">
-        <div *ngIf="form.controls.do_fee.value">
+        <div *ngIf="form.controls.do_fee.value" style="padding-left: 12px;">
           <label style="font-size:14px; display: block; color:gray">Primary Fee</label>
-          <p-spinner size="10" step=".01" formControlName="primary_fee" placeholder="Primary Fee"></p-spinner>
+          <input class="spemr-form-input" sufix=" $" mask="0000" formControlName="primary_fee" placeholder="Primary Fee">
         </div>
       </td>
-      <td class="appttogglecell">
+      <td class="appttogglecell" style="padding-left: 12px;">
         <div *ngIf="form.controls.do_fee.value">
           <label style="font-size:14px; display: block; color:gray">2ndary Fee</label>
-          <p-spinner size="10" step=".01" formControlName="secondary_fee" placeholder="2ndary Fee"></p-spinner>
+          <input class="spemr-form-input" sufix=" $" mask="0000" formControlName="secondary_fee" placeholder="2ndary Fee">
         </div>
       </td>
       <td></td>
@@ -81,8 +90,7 @@
           formControlName="do_repeat"
           class="appttogglespacer"
           [color]=""
-          [checked]="true"
-          [disabled]="false">
+          [checked]="true">
           w/Repeat
         </mat-slide-toggle>
       </td>
@@ -117,9 +125,10 @@
             {{form.controls.repeat_frequency.value}}
             {{form.controls.repeat_frequency.value > 1 ?
             pluralize(form.controls.repeat_interval.value) :
-            form.controls.repeat_interval.value.name ? form.controls.repeat_interval.value.name : ''}}
+            form.controls.repeat_interval.value ? form.controls.repeat_interval.value : ''}}
           </label>
-          <p-spinner [(ngModel)]="form.controls.repeat_frequency.value" size="10" step="1" formControlName="repeat_frequency" placeholder="Frequency"></p-spinner>
+          <p-spinner [(ngModel)]="form.controls.repeat_frequency.value" size="10" step="1"
+                     formControlName="repeat_frequency" placeholder="Frequency"></p-spinner>
         </div>
       </td>
     </tr>
@@ -152,7 +161,7 @@
             <input #rependdate matInput [matDatepicker]="picker3" placeholder="Ends" formControlName="repeat_end_date">
             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
             <mat-datepicker #picker3></mat-datepicker>
-        </mat-form-field>
+          </mat-form-field>
         </div>
       </td>
 
@@ -163,20 +172,25 @@
 
 
   <div *ngIf="true" class="topSummary" style="margin-top:0px; padding-top:10px; padding-bottom: 5px;">
-    <div class="top-summary-title">Appointment For: {{form.controls.title.value}} {{ form.controls.start.value | date:"MM/dd/yyyy 'at' h:mma" }} for {{ form.controls.duration.value }} mins
+    <div class="top-summary-title">Appointment For:</div>
+    <div>{{form.controls.title.value | titlecase}} {{ form.controls.start.value | date:"MM/dd/yyyy 'at' h:mma" }}
+      for {{ form.controls.duration.value }} mins
     </div>
     <div class="top-summary-code">
-      {{ codeLine() }}
+      <mat-error
+        *ngIf="form.controls.start.dirty && !form.controls.start.valid && form.controls.start.errors.isNotDate">
+        Invalid Date!
+      </mat-error>
     </div>
   </div>
 
-  <p-messages [value]=checkform()></p-messages>
-
   <div style="padding-top:10px;">
-    <button mat-flat-button color="primary" type="submit" label="Save" style="margin-bottom:10px;width:auto"
-            class="blue-btn flat">Save
+    <button mat-flat-button color="blue" [disabled]="!canSaveForm() " (click)="onSubmit()" label="Save"
+            style="margin-bottom:10px;width:auto"
+            class="spemr-blue-bkg flat">Save
     </button>
-    <button mat-flat-button color="warn" (click)="deleteAppt()" label="Delete" style="margin-bottom:10px;width:auto; float:right"
+    <button mat-flat-button color="warn" [disabled]="deleteIsDisabled" (click)="deleteAppt()" label="Delete"
+            style="margin-bottom:10px;width:auto; float:right"
             class="red-btn flat">Delete
     </button>
   </div>

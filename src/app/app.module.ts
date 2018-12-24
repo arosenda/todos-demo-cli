@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { APP_BASE_HREF} from '@angular/common';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { OrderModule } from 'ngx-order-pipe';
+import {NgxMaskModule} from 'ngx-mask';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 import { environment} from '../environments/environment';
 import { TodosModule } from './todos/todos.module';
@@ -60,9 +63,10 @@ import {InvoiceService} from './services/invoice.service';
 // import {PatientService} from './services/patientService';
 import {PaymentService} from './services/paymentService';
 import {UserSettingsService} from './services/user-settings.service';
-import {CalendarModule, DropdownModule, MessageService, MessagesModule, SpinnerModule} from 'primeng/primeng';
+import {CalendarModule, MessageService, MessagesModule, SpinnerModule} from 'primeng/primeng';
 import {PatientSelectorComponent} from './patients/patient-selector/patient-selector.component';
 import {PatientsService} from './patients/state';
+// import {PatientService} from "./services/patientService";
 
 
 @NgModule({
@@ -75,7 +79,10 @@ import {PatientsService} from './patients/state';
     TodosModule,
     AppRoutingModule,
     FullCalendarModule,
+    OrderModule,
+    OwlDateTimeModule, OwlNativeDateTimeModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
+    NgxMaskModule.forRoot(),
 
     MatAutocompleteModule,
     MatButtonModule,
@@ -109,7 +116,6 @@ import {PatientsService} from './patients/state';
     MatTooltipModule,
     MatStepperModule,
 
-    DropdownModule,
     CalendarModule,
     MessagesModule,
     SpinnerModule,
@@ -141,6 +147,7 @@ import {PatientsService} from './patients/state';
               EventService,
               InvoiceService,
               PatientsService,
+              // PatientService,
               PaymentService,
               UserSettingsService,
               MessageService

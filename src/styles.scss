@@ -1,6 +1,51 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~fullcalendar/dist/fullcalendar.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
+$spemr-green: #ddf4f6;
+$spemr-blue:  #2a7bb0;
+$spemr-darkgreen: #30AFB8;
+$spemr-brown: #3f2a14;
+$spemr-gray: #7a8080;
+$spemr-lightgray: #dee0e0;
+
+.spemr-green-bkg {
+  background-color: $spemr-green;
+}
+.spemr-darkgreen-bkg {
+  background-color: $spemr-darkgreen;
+}
+.spemr-blue-bkg {
+  color: white;
+  background-color: $spemr-blue;
+}
+.spemr-brown-bkg {
+  background-color: $spemr-brown;
+}
+.spemr-gray-bkg {
+  background-color: $spemr-gray;
+}
+.spemr-lightgray-bkg {
+  background-color: $spemr-lightgray;
+}
+.spemr-form-dob {
+  width: 120px !important;
+}
+.spemr-form-input-long {
+  height: 33px;
+  width: 170px;
+  font-size: 16px;
+}
+.spemr-form-input-short {
+  height: 33px;
+  width: 60px;
+  font-size: 16px;
+}
+.spemr-form-input {
+  height: 34px;
+  width: 100px;
+  font-size: 16px;
+}
 .mat-dialog-container {
   will-change: transform, opacity;
 }
@@ -12,14 +57,14 @@
 .mffsidespaceblock {
   padding-left:10px;
   padding-right:10px;
-  display:inline-block;
+  display: inline-grid;
 }
 .fmffsidespaceblock {
   padding-right:10px;
-  display:inline-block;
+  display: inline-block;
 }
 .padding {
-  padding: 2em;
+  padding: 1em;
 }
 
 app-product {

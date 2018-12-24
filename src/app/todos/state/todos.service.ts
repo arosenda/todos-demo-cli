@@ -44,7 +44,7 @@ export class TodosService {
   update(id: ID, data) {
     this.http.put(`${environment.API_HTTP_URL}` +  this.api_path + '/' + `${id}` + '.json', data, this.httpOptions).subscribe((entity) => {
       debug(this.api_path + ' update enttity: ', entity, data);
-      this.todosStore.update(id, data);
+      this.todosStore.update(id, entity);
     });
   }
 
